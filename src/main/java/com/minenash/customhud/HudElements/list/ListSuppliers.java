@@ -209,7 +209,7 @@ public class ListSuppliers {
         if (id == null)
             return null;
         return () -> {
-            var opt = registry.getEntryList( TagKey.of(registry.getKey(), id) );
+            var opt = registry.getOptional(TagKey.of(registry.getKey(), id));
             if (opt.isEmpty())
                 return Collections.EMPTY_LIST;
 

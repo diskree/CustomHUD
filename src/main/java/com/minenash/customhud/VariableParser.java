@@ -1,13 +1,13 @@
 package com.minenash.customhud;
 
 import com.minenash.customhud.HudElements.*;
+import com.minenash.customhud.HudElements.functional.FunctionalElement;
 import com.minenash.customhud.HudElements.functional.GetValueElement;
 import com.minenash.customhud.HudElements.functional.SetValueElement;
-import com.minenash.customhud.HudElements.list.*;
-import com.minenash.customhud.HudElements.functional.FunctionalElement;
-import com.minenash.customhud.HudElements.interfaces.HudElement;
 import com.minenash.customhud.HudElements.icon.*;
-import com.minenash.customhud.HudElements.list.Attributers.Attributer;
+import com.minenash.customhud.HudElements.interfaces.HudElement;
+import com.minenash.customhud.HudElements.list.*;
+import com.minenash.customhud.HudElements.list.Attributers.*;
 import com.minenash.customhud.HudElements.stats.CustomStatElement;
 import com.minenash.customhud.HudElements.stats.TypedStatElement;
 import com.minenash.customhud.HudElements.supplier.*;
@@ -28,7 +28,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -57,12 +56,11 @@ import java.util.regex.Pattern;
 import static com.minenash.customhud.CustomHud.CLIENT;
 import static com.minenash.customhud.HudElements.list.AttributeHelpers.*;
 import static com.minenash.customhud.HudElements.list.Attributers.*;
+import static com.minenash.customhud.HudElements.list.ListSuppliers.*;
 import static com.minenash.customhud.HudElements.supplier.BooleanSupplierElement.*;
 import static com.minenash.customhud.HudElements.supplier.EntitySuppliers.*;
 import static com.minenash.customhud.HudElements.supplier.EntryNumberSuppliers.*;
 import static com.minenash.customhud.HudElements.supplier.IntegerSuppliers.*;
-import static com.minenash.customhud.HudElements.list.ListSuppliers.*;
-import static com.minenash.customhud.HudElements.supplier.IntegerSuppliers.TARGET_BLOCK_STRONG_POWERED_SOUTH;
 import static com.minenash.customhud.HudElements.supplier.SpecialIdSupplier.*;
 import static com.minenash.customhud.HudElements.supplier.SpecialSupplierElement.*;
 import static com.minenash.customhud.HudElements.supplier.StringSupplierElement.*;
@@ -812,7 +810,7 @@ public class VariableParser {
         if (!stat.startsWith(prefix))
             return null;
 
-        Optional<?> entry = registry.getOrEmpty( Identifier.of(stat.substring(prefix.length())) );
+        Optional<?> entry = registry.getOptionalValue( Identifier.of(stat.substring(prefix.length())) );
         if (entry.isPresent()) {
             enabled.updateStats = true;
             return new TypedStatElement(type, entry.get(), flags);

@@ -1,13 +1,13 @@
 package com.minenash.customhud.HudElements.icon;
 
 import com.minenash.customhud.CustomHud;
-import com.minenash.customhud.HudElements.interfaces.ExecuteElement;
 import com.minenash.customhud.conditionals.ExpressionParser;
 import com.minenash.customhud.conditionals.Operation;
 import com.minenash.customhud.data.Flags;
 import com.minenash.customhud.render.RenderPiece;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
@@ -93,7 +93,7 @@ public class NewTextureIconElement extends IconElement {
         context.getMatrices().push();
         context.getMatrices().translate(piece.x+shiftX, piece.y+shiftY-2 - (referenceCorner? 0 : (calcHeight*scale-calcHeight)/(scale*2)), 0);
         rotate(context.getMatrices(), calcWidth, calcHeight);
-        context.drawTexture(texture, 0, 0, calcWidth, calcHeight, calcU, calcV, (int) calcRegionWidth, (int) calcRegionHeight, textureWidth, textureHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, texture, 0, 0, calcWidth, calcHeight, calcU, calcV, (int) calcRegionWidth, (int) calcRegionHeight, textureWidth, textureHeight);
         context.getMatrices().pop();
     }
 

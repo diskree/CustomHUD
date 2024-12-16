@@ -21,6 +21,7 @@ import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -191,7 +192,8 @@ public class Attributers {
         if (name.startsWith("enchant:"))
             return VariableParser.attrElement(name, src -> src, true,
                     (enchant) -> () -> {
-                        var entry = CLIENT.world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(Identifier.tryParse(enchant));
+                        DynamicRegistryManager dynamicRegistryManager = CLIENT.world.getRegistryManager();
+                        var entry = dynamicRegistryManager.getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(Identifier.tryParse(enchant));
                         if (entry.isEmpty()) return null;
                         ItemStack stack = (ItemStack) sup.get();
                         if (stack.isEmpty()) return null;

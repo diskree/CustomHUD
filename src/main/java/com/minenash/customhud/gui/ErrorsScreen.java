@@ -7,7 +7,6 @@ import com.minenash.customhud.errors.Errors;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -20,7 +19,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Iterator;
 import java.util.List;
 
 import static com.minenash.customhud.CustomHud.CLIENT;
@@ -138,7 +136,7 @@ public class ErrorsScreen extends Screen {
 
         @Override
         protected ErrorEntry getEntryAtPosition(double x, double y) {
-            int m = MathHelper.floor(y - (double)this.getY()) - this.headerHeight + (int)this.getScrollAmount() - 4;
+            int m = MathHelper.floor(y - (double)this.getY()) - this.headerHeight + (int)this.getScrollY() - 4;
             int n = m / this.itemHeight;
 
             ErrorEntry entry = getSelectedOrNull();
@@ -225,7 +223,7 @@ public class ErrorsScreen extends Screen {
                 }
 
                 y += 6;
-                int ceX = getMaxScroll() > 0 ? width-16 : width-12;
+                int ceX = getMaxScrollY() > 0 ? width-16 : width-12;
 
                 context.drawCenteredTextWithShadow(textRenderer, error.line(), lineColumnX, y + y_offset, 0xFFFFFFFF);
                 if (refX > 0)

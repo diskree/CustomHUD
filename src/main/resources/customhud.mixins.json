@@ -30,7 +30,7 @@
     "fonts.TextRendererMixin",
     "music.MinecraftClientAccess",
     "music.MusicTrackerAccess",
-    "music.WorldRendererMixin"
+    "music.WorldEventHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
