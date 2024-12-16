@@ -231,7 +231,6 @@ public class CustomHud implements ModInitializer {
 	}
 
 	public static void resourceTriggeredReload() {
-		boolean anyHasErrors = false;
 		try(Stream<Path> pathsStream = Files.list(PROFILE_FOLDER).sorted(Comparator.comparing(p -> p.getFileName().toString()))) {
 			for (Path path : pathsStream.toList()) {
 				if (!Files.isDirectory(path)) {
@@ -240,14 +239,10 @@ public class CustomHud implements ModInitializer {
 						name = name.substring(0, name.length() - 4);
 						ProfileManager.replace(Profile.parseProfile(path, name));
 						if (Errors.hasErrors(name)) {
-							anyHasErrors = true;
 							CustomHud.showToast(name);
 						}
 					}
 				}
-			}
-			if (!anyHasErrors) {
-				CustomHud.showAllUpdatedToast();
 			}
 		} catch (IOException e) {
 			CustomHud.LOGGER.catching(e);
@@ -271,12 +266,6 @@ public class CustomHud implements ModInitializer {
 									.append(((MutableText)kb_showErrors.getBoundKeyLocalizedText()).formatted(Formatting.AQUA))
 									.append("§7 to view"))
 						: Text.literal("§aNo errors found")
-		));
-	}
-	public static void showAllUpdatedToast() {
-		CLIENT.getToastManager().add(new SystemToast(SystemToast.Type.PERIODIC_NOTIFICATION,
-				Text.literal("§fAll Profiles Updated"),
-				Text.literal("§aNo errors found")
 		));
 	}
 
